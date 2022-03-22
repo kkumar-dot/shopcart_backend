@@ -1,9 +1,9 @@
 module.exports = {
     HOST: 'localhost',
-    USER: 'root',
-    PASSWORD: '',
-    DB: 'node_sequelize_api_db',
-    dialect: 'mysql',
+    USER: 'abcd',
+    PASSWORD: '12345',
+    DB: 'employee',
+    dialect: 'mssql',
 
     pool: {
         max: 5,

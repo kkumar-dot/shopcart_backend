@@ -1,9 +1,9 @@
 const db = require('../models')
+const { Op } = require("sequelize")
 
 // image Upload
 const multer = require('multer')
 const path = require('path')
-
 
 // create main Model
 const Product = db.products
@@ -20,7 +20,7 @@ const addProduct = async (req, res) => {
         title: req.body.title,
         price: req.body.price,
         description: req.body.description,
-        published: req.body.published ? req.body.published : false
+        published: req.body.published
     }
 
     const product = await Product.create(info)
@@ -29,13 +29,12 @@ const addProduct = async (req, res) => {
 
 }
 
-
-
 // 2. get all products
 
 const getAllProducts = async (req, res) => {
 
     let products = await Product.findAll({})
+    // res.setHeader('Cross-Origin-Resource-Policy', 'same-site');
     res.status(200).send(products)
 
 }
@@ -60,7 +59,6 @@ const updateProduct = async (req, res) => {
 
     res.status(200).send(product)
    
-
 }
 
 // 5. delete product by id
@@ -79,7 +77,14 @@ const deleteProduct = async (req, res) => {
 
 const getPublishedProduct = async (req, res) => {
 
-    const products =  await Product.findAll({ where: { published: true }})
+    // const products =  await Product.findAll({ where: { Salary: 1 }})
+
+    const products =  await Product.findAll({ where: { 
+        Salary: {
+            [Op.gte]: 1,
+            [Op.lte]: 2
+        }
+     }})
 
     res.status(200).send(products)
 
@@ -102,7 +107,6 @@ const getProductReviews =  async (req, res) => {
     res.status(200).send(data)
 
 }
-
 
 // 8. Upload Image Controller
 
@@ -129,14 +133,6 @@ const upload = multer({
         cb('Give proper files formate to upload')
     }
 }).single('image')
-
-
-
-
-
-
-
-
 
 module.exports = {
     addProduct,
