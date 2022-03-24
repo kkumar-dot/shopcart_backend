@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
         },
         published: {
             type: DataTypes.INTEGER
+        },
+        category: {
+            type: DataTypes.STRING,
+            allowNull: false
         }
     })
 

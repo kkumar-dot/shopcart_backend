@@ -20,7 +20,8 @@ const addProduct = async (req, res) => {
         title: req.body.title,
         price: req.body.price,
         description: req.body.description,
-        published: req.body.published
+        published: req.body.published,
+        category: req.body.category
     }
 
     const product = await Product.create(info)
@@ -143,5 +144,4 @@ module.exports = {
     getPublishedProduct,
     getProductReviews,
     upload
-    
 }
